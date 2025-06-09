@@ -1,0 +1,10 @@
+docker build -t <name> <folder_path>
+    - Builds the image from the dockerfile
+docker run --name <container-name> -it <image_name> /bin/bash
+    - Will run the container and provide console
+docker exec -it <container-name> /bin/bash 
+    - Will give access to console of an already running docker container
+docker start <container-name>
+    - Start up the instance of a container again, with all info saved
+docker stop <container-name>
+    - Will stop the container running, saves the data. The container can be started again
