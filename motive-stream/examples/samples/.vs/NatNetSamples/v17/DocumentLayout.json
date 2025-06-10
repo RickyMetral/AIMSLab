@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ricar\\OneDrive\\Documents\\GitHub\\AIMSLab\\motive-stream\\examples\\samples\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FA84C39B-9F95-4151-A7A9-16BB5B0DE170}|SampleClient\\SampleClient.vcxproj|C:\\Users\\ricar\\OneDrive\\Documents\\GitHub\\AIMSLab\\motive-stream\\examples\\samples\\SampleClient\\SampleClient.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FA84C39B-9F95-4151-A7A9-16BB5B0DE170}|SampleClient\\SampleClient.vcxproj|solutionrelative:SampleClient\\SampleClient.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF46EAF2-2F9E-45C0-A75E-F004D14BD42D}|PacketClient\\PacketClient.vcxproj|C:\\Users\\ricar\\OneDrive\\Documents\\GitHub\\AIMSLab\\motive-stream\\examples\\samples\\PacketClient\\PacketClient.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AF46EAF2-2F9E-45C0-A75E-F004D14BD42D}|PacketClient\\PacketClient.vcxproj|solutionrelative:PacketClient\\PacketClient.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SampleClient.cpp",
+              "DocumentMoniker": "C:\\Users\\ricar\\OneDrive\\Documents\\GitHub\\AIMSLab\\motive-stream\\examples\\samples\\SampleClient\\SampleClient.cpp",
+              "RelativeDocumentMoniker": "SampleClient\\SampleClient.cpp",
+              "ToolTip": "C:\\Users\\ricar\\OneDrive\\Documents\\GitHub\\AIMSLab\\motive-stream\\examples\\samples\\SampleClient\\SampleClient.cpp",
+              "RelativeToolTip": "SampleClient\\SampleClient.cpp",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAABIAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-10T14:38:51.888Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PacketClient.cpp",
+              "DocumentMoniker": "C:\\Users\\ricar\\OneDrive\\Documents\\GitHub\\AIMSLab\\motive-stream\\examples\\samples\\PacketClient\\PacketClient.cpp",
+              "RelativeDocumentMoniker": "PacketClient\\PacketClient.cpp",
+              "ToolTip": "C:\\Users\\ricar\\OneDrive\\Documents\\GitHub\\AIMSLab\\motive-stream\\examples\\samples\\PacketClient\\PacketClient.cpp",
+              "RelativeToolTip": "PacketClient\\PacketClient.cpp",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-10T14:38:13.026Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

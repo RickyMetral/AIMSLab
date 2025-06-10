@@ -66,6 +66,8 @@ void NATNET_CALLCONV MessageHandler(Verbosity msgType, const char* msg);      //
 
 // Write output to file
 void WriteHeader(FILE* fp, sDataDescriptions* pDataDefs);
+void WriteFrame(FILE* fp, sFrameOfMocapData* data);
+void WriteFooter(FILE* fp);
 
 // Helper functions
 void ResetClient();
@@ -155,7 +157,7 @@ int main( int argc, char* argv[] )
     {
         // An example of synchronous server discovery.
 #if 0
-        const unsigned int kDiscoveryWaitTimeMillisec = 10 * 1000; // Wait 5 seconds for responses.
+        const unsigned int kDiscoveryWaitTimeMillisec = 5 * 1000; // Wait 5 seconds for responses.
         const int kMaxDescriptions = 10; // Get info for, at most, the first 10 servers to respond.
         sNatNetDiscoveredServer servers[kMaxDescriptions];
         int actualNumDescriptions = kMaxDescriptions;
@@ -181,12 +183,13 @@ int main( int argc, char* argv[] )
                 const size_t serverIndex = c - '1';
                 if ( serverIndex < g_discoveredServers.size() )
                 {
-                        const sNatNetDiscoveredServer& discoveredServer = g_discoveredServers[serverIndex];
+                    const sNatNetDiscoveredServer& discoveredServer = g_discoveredServers[serverIndex];
 
                     if ( discoveredServer.serverDescription.bConnectionInfoValid )
                     {
                         // Build the connection parameters.
 #ifdef _WIN32
+                        _snprintf_s(
 #else
                         snprintf(
 #endif
@@ -326,6 +329,7 @@ int main( int argc, char* argv[] )
 	}
 	if (g_outputFile)
 	{
+		WriteFooter(g_outputFile);
 		fclose(g_outputFile);
 		g_outputFile = NULL;
 	}
@@ -956,6 +960,11 @@ void OutputFrameQueueToConsole()
             break;
         }
 
+        if (g_outputFile)
+        {
+            WriteFrame(g_outputFile, data);
+        }
+
         bool bIsRecording = ((data->params & 0x01) != 0);
         if (bIsRecording)
         {
@@ -1321,6 +1330,7 @@ int SetGetProperty(char* szSetGetCommand)
     // Set Value
     strcpy(szMessage, szSetGetCommand);
     printf("\n");
+    printf(szMessage);
     printf("\n");
     iResult = g_pClient->SendMessageAndWait(szMessage, &response, &nBytes);
 
@@ -1330,10 +1340,13 @@ int SetGetProperty(char* szSetGetCommand)
         // Note : we sleep here to give Motive a chance to process the above SetProperty 
         // on a safe thread.  Otherwise Motive may return the previous value
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        sprintf(szMessage, "GetProperty,RigidBody1,Smoothing");
         iResult = g_pClient->SendMessageAndWait(szMessage, &response, &nBytes);
         if (iResult == ErrorCode_OK)
         {
             double val = atof((char*)response);
+            sprintf(szMessage, "%s,%.2f", szMessage, val);
+            printf(szMessage);
             printf("\n");
         }
         else
