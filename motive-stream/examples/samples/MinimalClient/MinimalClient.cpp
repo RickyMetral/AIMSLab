@@ -23,9 +23,10 @@
 #include <thread>
 
 // NatNet SDK includes
-#include "../../include/NatNetTypes.h"
-#include "../../include/NatNetCAPI.h"
-#include "../../include/NatNetClient.h"
+#include "NatNetTypes.h"
+#include "NatNetCAPI.h"
+#include "NatNetClient.h"
+#include "stdio.h"
 
 void NATNET_CALLCONV DataHandler(sFrameOfMocapData* data, void* pUserData);    // receives data from the server
 void PrintData(sFrameOfMocapData* data, NatNetClient* pClient);
@@ -377,11 +378,11 @@ void PrintData(sFrameOfMocapData* data, NatNetClient* pClient)
         NatNet_DecodeID(marker.ID, &modelID, &markerID);
         char szMarkerType[512];
         if (bActiveMarker)
-            strcpy_s(szMarkerType, "Active");
+            strcpy(szMarkerType, "Active");
         else if (bUnlabeled)
-            strcpy_s(szMarkerType, "Unlabeled");
+            strcpy(szMarkerType, "Unlabeled");
         else
-            strcpy_s(szMarkerType, "Labeled");
+            strcpy(szMarkerType, "Labeled");
         printf("%s Marker [ModelID=%d, MarkerID=%d] [size=%3.2f] [pos=%3.2f,%3.2f,%3.2f]\n",
             szMarkerType, modelID, markerID, marker.size, marker.x, marker.y, marker.z);
     }

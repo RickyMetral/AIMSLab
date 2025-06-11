@@ -518,7 +518,7 @@ int ConnectClient()
     if (retCode != ErrorCode_OK)
     {
         // Connection failed - print connection error code
-        printf("[SampleClinet] Unable to connect to server.  Error code: %d. Exiting.\n", retCode);
+        printf("[SampleClient] Unable to connect to server.  Error code: %d. Exiting.\n", retCode);
         return ErrorCode_Internal;
     }
     else

@@ -26,5 +26,7 @@ try:
         print("Received:", response.decode())
 except KeyboardInterrupt:
     # Close the socket (optional)
+    message = "land"
+    sock.sendto(message.encode(), tello_address)
     sock.close()
 
