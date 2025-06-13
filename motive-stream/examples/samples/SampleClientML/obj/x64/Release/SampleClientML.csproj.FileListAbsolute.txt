@@ -1,0 +1,8 @@
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\bin\x64\SampleClientML.exe.config
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\bin\x64\SampleClientML.exe
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\bin\x64\SampleClientML.pdb
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\SampleClientML\obj\x64\Release\SampleClientML.csproj.AssemblyReference.cache
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\SampleClientML\obj\x64\Release\SampleClientML.exe.config
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\SampleClientML\obj\x64\Release\SampleClientML.csproj.CoreCompileInputs.cache
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\SampleClientML\obj\x64\Release\SampleClientML.exe
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\SampleClientML\obj\x64\Release\SampleClientML.pdb

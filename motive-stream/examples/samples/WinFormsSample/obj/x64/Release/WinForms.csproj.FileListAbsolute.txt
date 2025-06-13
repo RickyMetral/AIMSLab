@@ -1,0 +1,11 @@
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\bin\x64\WinFormTestApp.exe.config
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\bin\x64\WinFormTestApp.exe
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\bin\x64\WinFormTestApp.pdb
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\WinFormsSample\obj\x64\Release\WinForms.csproj.AssemblyReference.cache
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\WinFormsSample\obj\x64\Release\WinFormTestApp.exe.config
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\WinFormsSample\obj\x64\Release\WinFormTestApp.Form1.resources
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\WinFormsSample\obj\x64\Release\WinFormTestApp.Properties.Resources.resources
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\WinFormsSample\obj\x64\Release\WinForms.csproj.GenerateResource.cache
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\WinFormsSample\obj\x64\Release\WinForms.csproj.CoreCompileInputs.cache
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\WinFormsSample\obj\x64\Release\WinFormTestApp.exe
+C:\Users\ricar\OneDrive\Documents\GitHub\AIMSLab\motive-stream\examples\samples\WinFormsSample\obj\x64\Release\WinFormTestApp.pdb
