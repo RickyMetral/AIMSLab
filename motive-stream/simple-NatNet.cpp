@@ -26,9 +26,9 @@ int main(){
     motive_params.connectionType = ConnectionType_Multicast;
     motive_params.serverCommandPort = (uint16_t) 1510;
     motive_params.serverDataPort= (uint16_t) 1511;
-    motive_params.serverAddress = "172.17.16.1";
-    motive_params.localAddress= "172.20.169.27";
-    motive_params.multicastAddress= "239.255.42.99";
+    motive_params.serverAddress = "192.168.1.14";
+    motive_params.localAddress= "127.0.0.1";
+    motive_params.multicastAddress= "255.255.255.255";
     motive_client->Disconnect();
     int ret = motive_client->Connect(motive_params);
     if(ret){
