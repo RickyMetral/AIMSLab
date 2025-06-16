@@ -25,6 +25,7 @@
  *********************************************************************/
 
 
+#include <iostream>
 #include <inttypes.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -212,6 +213,7 @@ int main( int argc, char* argv[] )
                     {
                         // We're missing some info because it's a legacy server.
                         // Guess the defaults and make a best effort attempt to connect.
+                        std::cout << "Were Here";
                         g_connectParams.connectionType = kDefaultConnectionType;
                         g_connectParams.serverCommandPort = discoveredServer.serverCommandPort;
                         g_connectParams.serverDataPort = 0;

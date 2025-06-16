@@ -11,6 +11,12 @@ void VRPN_CALLBACK handle_tracker(void* userData, const vrpn_TRACKERCB t)
     std::cout << "Tracker Position: "
               << t.pos[0] << ", " << t.pos[1] << ", " << t.pos[2] << std::endl;
 }
+void VRPN_CALLBACK handle_tracker(void* userData, const vrpn_TRACKERVELCB twist)
+{
+    std::cout << "Tracker Velocity"
+              << twist.vel[0] << ", " << twsit.vel[1] << ", " << twist.vel[2] << std::endl;
+
+}
 
 int main(int argc, char** argv)
 {
