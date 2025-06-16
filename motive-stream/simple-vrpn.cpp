@@ -5,17 +5,32 @@
 #include "vrpn_Tracker.h"
 #include "vrpn_Connection.h"
 
+auto time_sent = std::chrono::high_resolution_clock::now();
 // Callback function for receiving tracker data
 void VRPN_CALLBACK handle_tracker(void* userData, const vrpn_TRACKERCB t)
 {
-    std::cout << "Tracker Position: "
-              << t.pos[0] << ", " << t.pos[1] << ", " << t.pos[2] << std::endl;
+    auto time_recv = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(time_recv-time_sent);
+    long long milliseconds = duration.count();
+    std::cout << "Time since last packet received: "
+	      << milliseconds << "ms" << std::endl;
+    std::cout << "Tracker Position Euler: "
+              << t.pos[0] << ", " << t.pos[1] << ", " << t.pos[2] << std::endl; 
+    std::cout << "Tracker Position Quat: "
+              << t.quat[0] << ", " << t.quat[1] << ", " << t.quat[2] << ","  << t.quat[3] << std::endl; 
+    time_sent = std::chrono::high_resolution_clock::now();
 }
-void VRPN_CALLBACK handle_tracker(void* userData, const vrpn_TRACKERVELCB twist)
-{
-    std::cout << "Tracker Velocity"
-              << twist.vel[0] << ", " << twsit.vel[1] << ", " << twist.vel[2] << std::endl;
 
+void VRPN_CALLBACK handle_twist(void* userData, const vrpn_TRACKERVELCB twist)
+{
+    auto time_recv = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(time_recv-time_sent);
+    long long milliseconds = duration.count();
+    std::cout << "Time since last packet received: "
+	      << milliseconds << "ms" << std::endl;
+    std::cout << "Tracker Velocity"
+              << twist.vel[0] << ", " << twist.vel[1] << ", " << twist.vel[2] << std::endl;
+    time_sent = std::chrono::high_resolution_clock::now();
 }
 
 int main(int argc, char** argv)
