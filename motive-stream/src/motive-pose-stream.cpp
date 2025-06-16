@@ -4,18 +4,32 @@
 #include <thread>
 #include "vrpn_Tracker.h"
 #include "vrpn_Connection.h"
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#include <bits/stdc++.h> 
+#include <sys/types.h> 
+#include <arpa/inet.h> 
+#include "UDPConnection.hpp"
+#include "Messages.hpp"
 
+
+UDPConnection udpConnection("192.168.1.139", 8889);
 // Callback function for receiving tracker data
-void VRPN_CALLBACK handle_tracker(void* userData, const vrpn_TRACKERCB t)
+void VRPN_CALLBACK handle_pose(void* userData, const vrpn_TRACKERCB t)
 {
+    struct Pose_msg* pose_data;
+    pose_data->quaternion.x = t.quat[0];
+    pose_data->quaternion.y = t.quat[1];
+    pose_data->quaternion.z = t.quat[2];
+    pose_data->quaternion.w = t.quat[3];
+    pose_data->point.x = t.pos[0];
+    pose_data->point.y = t.pos[1];
+    pose_data->point.z = t.pos[2];
     std::cout << "Tracker Position: "
               << t.pos[0] << ", " << t.pos[1] << ", " << t.pos[2] << std::endl;
-}
-void VRPN_CALLBACK handle_tracker(void* userData, const vrpn_TRACKERVELCB twist)
-{
-    std::cout << "Tracker Velocity"
-              << twist.vel[0] << ", " << twsit.vel[1] << ", " << twist.vel[2] << std::endl;
-
+    udpConnection.send(pose_data, sizeof(pose_data), 0);
+    
 }
 
 int main(int argc, char** argv)
@@ -36,8 +50,8 @@ int main(int argc, char** argv)
     // Create Tracker client attached to existing connection
     vrpn_Tracker_Remote tracker(full_address.c_str(), connection);
 
-    // Register callback
-    tracker.register_change_handler(nullptr, handle_tracker);
+    // Register callback function
+    tracker.register_change_handler(nullptr, handle_pose);
 
     std::cout << "Attempting connection to VRPN server at: " << full_address << std::endl;
 
@@ -57,7 +71,7 @@ int main(int argc, char** argv)
         return -2;
     }
 
-    // Now enter main loop to read data
+    // Enter main loop to read data
     while (true) {
         connection->mainloop();
         tracker.mainloop();
