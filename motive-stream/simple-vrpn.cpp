@@ -15,8 +15,8 @@ void VRPN_CALLBACK handle_tracker(void* userData, const vrpn_TRACKERCB t)
 int main(int argc, char** argv)
 {
     // Set your tracker name & VRPN server address
-    const std::string tracker_name = "Tracker0";
-    const std::string server_address = "192.168.1.42";
+    const std::string tracker_name = "starscream";
+    const std::string server_address = "192.168.1.42:3883";
     const std::string full_address = tracker_name + "@" + server_address;
 
     // Use vrpn_get_connection_by_name() instead of implicit connection
