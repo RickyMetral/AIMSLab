@@ -20,5 +20,5 @@ public:
     UDPConnection(std::string clientAddr, int port_num);
     ~UDPConnection();
     void send(const void* message, int msglen, int flags);
-    std::string receive(int bufferSize = 1024, int flags = 0);
+    void receive(const char* buffer, int bufferSize = 1024, int flags = 0);
 };

@@ -50,15 +50,14 @@ void UDPConnection::send(const void* message, int msglen, int flags){
     if(bytes_sent < 0){
         std::cerr << "Message was not sent" << std::endl;
     } else{
-        std::cout << "Sent: " << message << std::endl;
+        std::cout << "Sent: " << static_cast<const char*>(message) << std::endl;
     }
 }
 
-std::string UDPConnection::receive(int bufferSize, int flags){
-    std::string buffer(bufferSize, '\0');
+void UDPConnection::receive(const char* buffer, int bufferSize, int flags){
     socklen_t recvLen = socklen;
 
-    int bytes_recv = recvfrom(socketfd, &buffer[0], bufferSize, flags,
+    int bytes_recv = recvfrom(socketfd, &buffer, bufferSize, flags,
                             (struct sockaddr*)(&clientAddress), &recvLen);
     
     if (bytes_recv < 0) {
@@ -66,7 +65,7 @@ std::string UDPConnection::receive(int bufferSize, int flags){
         return "";
     }
 
-    buffer.resize(bytes_recv); // trim to actual received size
-    std::cout << "Received: " << buffer << std::endl;
-    return buffer;
+    //buffer.resize(bytes_recv); // trim to actual received size
+    std::cout << "Received Message" << std::endl;
+    buffer[bytes_recv] = '\0';
 }
