@@ -1,11 +1,11 @@
-    #include <cstring>
-    #include <iostream>
-    #include <netinet/in.h>
-    #include <sys/socket.h>
-    #include <unistd.h>
-    #include <sys/types.h> 
-    #include <arpa/inet.h> 
-    #include "UDPConnection.hpp"
+#include <cstring>
+#include <iostream>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#include <sys/types.h> 
+#include <arpa/inet.h> 
+#include "UDPConnection.hpp"
 
 
 void UDPConnection::createSocket(){
@@ -54,18 +54,17 @@ void UDPConnection::send(const void* message, int msglen, int flags){
     }
 }
 
-void UDPConnection::receive(const char* buffer, int bufferSize, int flags){
+void UDPConnection::receive(char* buffer, int bufferSize, int flags){
     socklen_t recvLen = socklen;
 
-    int bytes_recv = recvfrom(socketfd, &buffer, bufferSize, flags,
-                            (struct sockaddr*)(&clientAddress), &recvLen);
+    int bytes_recv = recvfrom(socketfd, buffer,  bufferSize, flags,
+            (struct sockaddr*)(&clientAddress), &recvLen);
     
     if (bytes_recv < 0) {
         std::cerr << "Failed to receive message." << std::endl;
-        return "";
+        return;
     }
 
-    //buffer.resize(bytes_recv); // trim to actual received size
     std::cout << "Received Message" << std::endl;
     buffer[bytes_recv] = '\0';
 }

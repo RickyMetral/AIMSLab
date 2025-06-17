@@ -6,7 +6,6 @@
 #include <sys/types.h> 
 #include <arpa/inet.h> 
 
-
 class UDPConnection{
 private:
     int socketfd;
@@ -20,5 +19,5 @@ public:
     UDPConnection(std::string clientAddr, int port_num);
     ~UDPConnection();
     void send(const void* message, int msglen, int flags);
-    void receive(const char* buffer, int bufferSize = 1024, int flags = 0);
+    void receive(char* buffer, int bufferSize = 1024, int flags = 0);
 };
