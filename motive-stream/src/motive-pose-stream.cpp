@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <chrono>
 #include <thread>
@@ -14,32 +15,34 @@
 #include "Messages.hpp"
 
 
+
 UDPConnection udpConnection("127.0.0.1", 8889);
 
 void serializeBuffer(const Pose_msg& packet, char* buffer){
 	memcpy(buffer, &packet.quaternion.x, sizeof(packet.quaternion.x));
-	memcpy(buffer, &packet.quaternion.y, sizeof(packet.quaternion.y));
-	memcpy(buffer, &packet.quaternion.z, sizeof(packet.quaternion.z));
-	memcpy(buffer, &packet.quaternion.w, sizeof(packet.quaternion.w));
-	memcpy(buffer, &packet.point.x, sizeof(packet.point.x));
-	memcpy(buffer, &packet.point.y, sizeof(packet.point.y));
-	memcpy(buffer, &packet.point.z, sizeof(packet.point.z));
+	memcpy(buffer + sizeof(packet.quaternion.y) , &packet.quaternion.y, sizeof(packet.quaternion.y));
+	memcpy(buffer + 2 * sizeof(packet.quaternion.z), &packet.quaternion.z, sizeof(packet.quaternion.z));
+	memcpy(buffer + 3 * sizeof(packet.quaternion.w), &packet.quaternion.w, sizeof(packet.quaternion.w));
+	memcpy(buffer + 4 * sizeof(packet.point.x), &packet.point.x, sizeof(packet.point.x));
+	memcpy(buffer + 5 * sizeof(packet.point.y), &packet.point.y, sizeof(packet.point.y));
+	memcpy(buffer + 6 * sizeof(packet.point.z), &packet.point.z, sizeof(packet.point.z));
 }
 
-void deserializeBuffer(Pose_msg* packet, const char* buffer){
+void deserializeBuffer(Pose_msg& packet, char* buffer){
 	memcpy(&packet.quaternion.x, buffer, sizeof(packet.quaternion.x));
-	memcpy(&packet.quaternion.y, buffer, sizeof(packet.quaternion.y));
-	memcpy(&packet.quaternion.z, buffer, sizeof(packet.quaternion.z));
-	memcpy(&packet.quaternion.w, buffer, sizeof(packet.quaternion.w));
-	memcpy(&packet.point.x, buffer, sizeof(packet.point.x));
-	memcpy(&packet.point.y, buffer, sizeof(packet.point.y));
-	memcpy(&packet.point.z, buffer, sizeof(packet.point.z));
+	memcpy(&packet.quaternion.y, buffer + sizeof(packet.quaternion.y), sizeof(packet.quaternion.y));
+	memcpy(&packet.quaternion.z, buffer + 2 * sizeof(packet.quaternion.z), sizeof(packet.quaternion.z));
+	memcpy(&packet.quaternion.w, buffer + 3 * sizeof(packet.quaternion.w), sizeof(packet.quaternion.w));
+	memcpy(&packet.point.x, buffer + 4 * sizeof(packet.point.x), sizeof(packet.point.x));
+	memcpy(&packet.point.y, buffer + 5 * sizeof(packet.point.y), sizeof(packet.point.y));
+	memcpy(&packet.point.z, buffer + 6 * sizeof(packet.point.z), sizeof(packet.point.z));
 
 }
 // Callback function for receiving tracker data
 void VRPN_CALLBACK handle_pose(void* userData, const vrpn_TRACKERCB t)
 {
-    struct Pose_msg pose_data;
+    Pose_msg packet;
+    Pose_msg pose_data;
     pose_data.quaternion.x = t.quat[0];
     pose_data.quaternion.y = t.quat[1];
     pose_data.quaternion.z = t.quat[2];
@@ -52,6 +55,14 @@ void VRPN_CALLBACK handle_pose(void* userData, const vrpn_TRACKERCB t)
     char buffer[sizeof(pose_data)];
     serializeBuffer(pose_data, buffer);
     udpConnection.send(reinterpret_cast<const char*>(buffer), sizeof(pose_data), 0);
+	udpConnection.receive(buffer, 1024,0);
+	deserializeBuffer(packet, buffer);
+}
+std::ostream& operator<<(std::ostream& os, const Pose_msg& msg){
+    os << "Quaternions: " << msg.quaternion.x << msg.quaternion.y 
+        <<  msg.quaternion.y <<  msg.quaternion.w << "\n"
+        "Position: " << msg.point.x << msg.point.y << msg.point.z << std::endl;
+    return os;
 }
 
 int main(int argc, char** argv)
@@ -94,14 +105,10 @@ int main(int argc, char** argv)
     }
 
     // Enter main loop to read data
-    Pose_msg* packet;
     char buffer[1024];
     while (true) {
         connection->mainloop();
         tracker.mainloop();
-	udpConnection.receive(buffer, 1024,0);
-	deserializeBuffer(packet, buffer);
-	std::cout << packet.point.x << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
