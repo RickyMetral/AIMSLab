@@ -18,6 +18,13 @@
 
 UDPConnection udpConnection("127.0.0.1", 8889);
 
+std::ostream& operator<<(std::ostream& os, const Pose_msg& msg){
+    os << "Quaternions: " << msg.quaternion.x << msg.quaternion.y 
+        <<  msg.quaternion.y <<  msg.quaternion.w << "\n"
+        "Position: " << msg.point.x << msg.point.y << msg.point.z << std::endl;
+    return os;
+}
+
 void serializeBuffer(const Pose_msg& packet, char* buffer){
 	memcpy(buffer, &packet.quaternion.x, sizeof(packet.quaternion.x));
 	memcpy(buffer + sizeof(packet.quaternion.y) , &packet.quaternion.y, sizeof(packet.quaternion.y));
@@ -57,13 +64,10 @@ void VRPN_CALLBACK handle_pose(void* userData, const vrpn_TRACKERCB t)
     udpConnection.send(reinterpret_cast<const char*>(buffer), sizeof(pose_data), 0);
 	udpConnection.receive(buffer, 1024,0);
 	deserializeBuffer(packet, buffer);
+    std::cout << "Received Packet: \n" << packet << std::endl;
 }
-std::ostream& operator<<(std::ostream& os, const Pose_msg& msg){
-    os << "Quaternions: " << msg.quaternion.x << msg.quaternion.y 
-        <<  msg.quaternion.y <<  msg.quaternion.w << "\n"
-        "Position: " << msg.point.x << msg.point.y << msg.point.z << std::endl;
-    return os;
-}
+
+
 
 int main(int argc, char** argv)
 {

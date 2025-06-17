@@ -50,7 +50,7 @@ void UDPConnection::send(const void* message, int msglen, int flags){
     if(bytes_sent < 0){
         std::cerr << "Message was not sent" << std::endl;
     } else{
-        std::cout << "Sent: " << static_cast<const char*>(message) << std::endl;
+        std::cout << "Sent Packet " << static_cast<const char*>(message) << std::endl;
     }
 }
 
