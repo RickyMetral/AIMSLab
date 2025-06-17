@@ -16,8 +16,8 @@ include_directories(/usr/local/include)
 
 # Source files
 set(SOURCES
-    /home/ricar/AIMSLab/motive-stream/src/motive-pose-stream.cpp
-    /home/ricar/AIMSLab/motive-stream/src/UDPConnection.cpp
+    src/motive-pose-stream.cpp
+    src/UDPConnection.cpp
 )
 
 # Libraries
