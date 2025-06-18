@@ -45,26 +45,28 @@ UDPConnection::~UDPConnection(){
     }
 }
 
-void UDPConnection::send(const void* message, int msglen, int flags){
+int UDPConnection::send(const void* message, int msglen, int flags){
     int bytes_sent = sendto(this->socketfd, message, msglen, flags, (struct sockaddr*)&(this->clientAddress), this->socklen);
     if(bytes_sent < 0){
         std::cerr << "Message was not sent" << std::endl;
     } else{
-        std::cout << "Sent Packet " << static_cast<const char*>(message) << std::endl;
+        std::cout << "Sent Packet" << std::endl;
     }
+    return bytes_sent;
 }
 
-void UDPConnection::receive(char* buffer, int bufferSize, int flags){
+int UDPConnection::receive(char* buffer, int bufferSize, int flags){
     socklen_t recvLen = socklen;
 
     int bytes_recv = recvfrom(socketfd, buffer,  bufferSize, flags,
-            (struct sockaddr*)(&clientAddress), &recvLen);
+            (struct sockaddr*)(&this->clientAddress), &recvLen);
     
     if (bytes_recv < 0) {
         std::cerr << "Failed to receive message." << std::endl;
-        return;
+        return -1;
     }
 
     std::cout << "Received Message" << std::endl;
     buffer[bytes_recv] = '\0';
+    return bytes_recv;
 }

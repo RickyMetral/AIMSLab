@@ -1,5 +1,3 @@
-// C++ program to show the example of server application in
-// socket programming
 #include <cstring>
 #include <iostream>
 #include <netinet/in.h>

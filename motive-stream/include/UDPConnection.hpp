@@ -18,6 +18,6 @@ private:
 public:
     UDPConnection(std::string clientAddr, int port_num);
     ~UDPConnection();
-    void send(const void* message, int msglen, int flags);
-    void receive(char* buffer, int bufferSize = 1024, int flags = 0);
+    int send(const void* message, int msglen, int flags);
+    int receive(char* buffer, int bufferSize = 1024, int flags = 0);
 };
