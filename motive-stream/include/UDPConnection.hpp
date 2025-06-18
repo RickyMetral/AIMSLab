@@ -16,7 +16,7 @@ private:
     void bindSocket();
 
 public:
-    UDPConnection(std::string clientAddr, int port_num);
+    UDPConnection(std::string clientAddr, int serverPort, int clientPort);
     ~UDPConnection();
     int send(const void* message, int msglen, int flags);
     int receive(char* buffer, int bufferSize = 1024, int flags = 0);
