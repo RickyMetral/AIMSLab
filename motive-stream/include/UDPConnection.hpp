@@ -10,7 +10,8 @@ class UDPConnection{
 private:
     int socketfd;
     sockaddr_in clientAddress, serverAddress;
-    socklen_t socklen;
+    socklen_t s_socklen;
+    socklen_t c_socklen;
     char buf[1024];
     void createSocket();
     void bindSocket();

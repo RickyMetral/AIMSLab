@@ -16,7 +16,7 @@ void UDPConnection::createSocket(){
 }
     
 void UDPConnection::bindSocket(){
-    if (bind(this->socketfd, (struct sockaddr*)&(this->serverAddress), this->socklen) < 0){
+    if (bind(this->socketfd, (struct sockaddr*)&(this->serverAddress), this->s_socklen) < 0){
         throw std::runtime_error("Bind failed");
     }
 }
@@ -35,7 +35,8 @@ UDPConnection::UDPConnection(std::string clientAddr, int serverPort, int clientP
     this->serverAddress.sin_port = htons(serverPort);
     this->serverAddress.sin_addr.s_addr = INADDR_ANY;
 
-    this->socklen = sizeof(this->clientAddress);
+    this->c_socklen = sizeof(this->clientAddress);
+    this->s_socklen = sizeof(this->serverAddress);
     bindSocket();
 }
 
@@ -46,7 +47,7 @@ UDPConnection::~UDPConnection(){
 }
 
 int UDPConnection::send(const void* message, int msglen, int flags){
-    int bytes_sent = sendto(this->socketfd, message, msglen, flags, (struct sockaddr*)&(this->clientAddress), this->socklen);
+    int bytes_sent = sendto(this->socketfd, message, msglen, flags, (struct sockaddr*)&(this->clientAddress), this->c_socklen);
     if(bytes_sent < 0){
         std::cerr << "Message was not sent" << std::endl;
     } else{
@@ -56,10 +57,9 @@ int UDPConnection::send(const void* message, int msglen, int flags){
 }
 
 int UDPConnection::receive(char* buffer, int bufferSize, int flags){
-    socklen_t recvLen = socklen;
 
     int bytes_recv = recvfrom(socketfd, buffer,  bufferSize, flags,
-            (struct sockaddr*)(&this->clientAddress), &recvLen);
+            (struct sockaddr*)(&this->clientAddress), &this->c_socklen);
     
     if (bytes_recv < 0) {
         std::cerr << "Failed to receive message." << std::endl;
