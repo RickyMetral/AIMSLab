@@ -21,18 +21,18 @@ void UDPConnection::bindSocket(){
     }
 }
 
-UDPConnection::UDPConnection(std::string clientAddr, int port_num){
+UDPConnection::UDPConnection(std::string clientAddr, int serverPort, int clientPort){
     memset(this->clientAddress.sin_zero, 0, sizeof(this->clientAddress.sin_zero));
     memset(this->serverAddress.sin_zero, 0, sizeof(this->serverAddress.sin_zero));
 
     createSocket();
 
     this->clientAddress.sin_family = AF_INET;
-    this->clientAddress.sin_port = htons(port_num);
+    this->clientAddress.sin_port = htons(clientPort);
     inet_pton(AF_INET, clientAddr.c_str(), &(this->clientAddress.sin_addr));
 
     this->serverAddress.sin_family = AF_INET;
-    this->serverAddress.sin_port = htons(port_num);
+    this->serverAddress.sin_port = htons(serverPort);
     this->serverAddress.sin_addr.s_addr = INADDR_ANY;
 
     this->socklen = sizeof(this->clientAddress);

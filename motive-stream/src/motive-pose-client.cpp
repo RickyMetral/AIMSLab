@@ -32,7 +32,7 @@ void deserializePoseMsg(Pose_msg& packet, char* buffer){
 int main(int argc, char** argv)
 {
     Pose_msg packet;
-    UDPConnection udpConnection("192.168.1.113", 8889);
+    UDPConnection udpConnection("192.168.1.113", 10444, 10443);
     char buffer[1024];
     while(true){
         udpConnection.receive(buffer, sizeof(packet), 0);
