@@ -15,8 +15,8 @@
 #include "Messages.hpp"
 
 
-
-UDPConnection udpConnection("127.0.0.1", 8889);
+std::string serverIp = "192.168.1.139";
+UDPConnection udpConnection(serverIp, 10443, 10444);
 
 std::ostream& operator<<(std::ostream& os, const Pose_msg& msg){
     os << "Quaternions: " << msg.quaternion.x << msg.quaternion.y 
@@ -48,7 +48,6 @@ void deserializeBuffer(Pose_msg& packet, char* buffer){
 // Callback function for receiving tracker data
 void VRPN_CALLBACK handle_pose(void* userData, const vrpn_TRACKERCB t)
 {
-    Pose_msg packet;
     Pose_msg pose_data;
     pose_data.quaternion.x = t.quat[0];
     pose_data.quaternion.y = t.quat[1];
@@ -57,14 +56,10 @@ void VRPN_CALLBACK handle_pose(void* userData, const vrpn_TRACKERCB t)
     pose_data.point.x = t.pos[0];
     pose_data.point.y = t.pos[1];
     pose_data.point.z = t.pos[2];
-    std::cout << "Tracker Position: "
-              << t.pos[0] << ", " << t.pos[1] << ", " << t.pos[2] << std::endl;
+    std::cout << pose_data << std::endl;
     char buffer[sizeof(pose_data)];
     serializeBuffer(pose_data, buffer);
     udpConnection.send(reinterpret_cast<const char*>(buffer), sizeof(pose_data), 0);
-	udpConnection.receive(buffer, 1024,0);
-	deserializeBuffer(packet, buffer);
-    std::cout << "Received Packet: \n" << packet << std::endl;
 }
 
 
@@ -113,6 +108,7 @@ int main(int argc, char** argv)
     while (true) {
         connection->mainloop();
         tracker.mainloop();
+   
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
