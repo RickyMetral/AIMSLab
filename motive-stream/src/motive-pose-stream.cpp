@@ -15,8 +15,8 @@
 #include "Messages.hpp"
 
 
-
-UDPConnection udpConnection("127.0.0.1", 8889);
+std::string clientAddr = "127.0.0.1";
+UDPConnection udpConnection(clientAddr, 8889);
 
 std::ostream& operator<<(std::ostream& os, const Pose_msg& msg){
     os << "Quaternions: " << msg.quaternion.x << msg.quaternion.y 
@@ -25,7 +25,7 @@ std::ostream& operator<<(std::ostream& os, const Pose_msg& msg){
     return os;
 }
 
-void serializeBuffer(const Pose_msg& packet, char* buffer){
+void serializePoseMsg(const Pose_msg& packet, char* buffer){
 	memcpy(buffer, &packet.quaternion.x, sizeof(packet.quaternion.x));
 	memcpy(buffer + sizeof(packet.quaternion.y) , &packet.quaternion.y, sizeof(packet.quaternion.y));
 	memcpy(buffer + 2 * sizeof(packet.quaternion.z), &packet.quaternion.z, sizeof(packet.quaternion.z));
@@ -35,7 +35,7 @@ void serializeBuffer(const Pose_msg& packet, char* buffer){
 	memcpy(buffer + 6 * sizeof(packet.point.z), &packet.point.z, sizeof(packet.point.z));
 }
 
-void deserializeBuffer(Pose_msg& packet, char* buffer){
+void deserializePoseMsg(Pose_msg& packet, char* buffer){
 	memcpy(&packet.quaternion.x, buffer, sizeof(packet.quaternion.x));
 	memcpy(&packet.quaternion.y, buffer + sizeof(packet.quaternion.y), sizeof(packet.quaternion.y));
 	memcpy(&packet.quaternion.z, buffer + 2 * sizeof(packet.quaternion.z), sizeof(packet.quaternion.z));
@@ -60,11 +60,8 @@ void VRPN_CALLBACK handle_pose(void* userData, const vrpn_TRACKERCB t)
     std::cout << "Tracker Position: "
               << t.pos[0] << ", " << t.pos[1] << ", " << t.pos[2] << std::endl;
     char buffer[sizeof(pose_data)];
-    serializeBuffer(pose_data, buffer);
+    serializePoseMsg(pose_data, buffer);
     udpConnection.send(reinterpret_cast<const char*>(buffer), sizeof(pose_data), 0);
-	udpConnection.receive(buffer, 1024,0);
-	deserializeBuffer(packet, buffer);
-    std::cout << "Received Packet: \n" << packet << std::endl;
 }
 
 
@@ -109,7 +106,6 @@ int main(int argc, char** argv)
     }
 
     // Enter main loop to read data
-    char buffer[1024];
     while (true) {
         connection->mainloop();
         tracker.mainloop();
