@@ -16,7 +16,7 @@ include_directories(/usr/local/include)
 
 # Source files
 set(SOURCES
-    src/motive-pose-stream.cpp
+    src/motive-pose-stream-aze.cpp
     src/UDPConnection.cpp
 )
 

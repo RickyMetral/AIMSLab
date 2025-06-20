@@ -25,17 +25,28 @@ std::ostream& operator<<(std::ostream& os, const Pose_msg& msg){
     return os;
 }
 
-void serializePoseMsg(const Pose_msg& packet, char* buffer){
-	memcpy(buffer, &packet.quaternion.x, sizeof(packet.quaternion.x));
-	memcpy(buffer + sizeof(packet.quaternion.y) , &packet.quaternion.y, sizeof(packet.quaternion.y));
-	memcpy(buffer + 2 * sizeof(packet.quaternion.z), &packet.quaternion.z, sizeof(packet.quaternion.z));
-	memcpy(buffer + 3 * sizeof(packet.quaternion.w), &packet.quaternion.w, sizeof(packet.quaternion.w));
-	memcpy(buffer + 4 * sizeof(packet.point.x), &packet.point.x, sizeof(packet.point.x));
-	memcpy(buffer + 5 * sizeof(packet.point.y), &packet.point.y, sizeof(packet.point.y));
-	memcpy(buffer + 6 * sizeof(packet.point.z), &packet.point.z, sizeof(packet.point.z));
+void serializeBuffer(const Pose_msg& packet, char* buffer){
+    // Convert doubles to floats during serialization
+    float qx = (float)packet.quaternion.x;
+    float qy = (float)packet.quaternion.y;
+    float qz = (float)packet.quaternion.z;
+    float qw = (float)packet.quaternion.w;
+    float px = (float)packet.point.x;
+    float py = (float)packet.point.y;
+    float pz = (float)packet.point.z;
+    
+    // Now write the floats to the buffer
+    memcpy(buffer + 0,  &qx, sizeof(float));
+    memcpy(buffer + 4,  &qy, sizeof(float));
+    memcpy(buffer + 8,  &qz, sizeof(float));
+    memcpy(buffer + 12, &qw, sizeof(float));
+    memcpy(buffer + 16, &px, sizeof(float));
+    memcpy(buffer + 20, &py, sizeof(float));
+    memcpy(buffer + 24, &pz, sizeof(float));
 }
 
-void deserializePoseMsg(Pose_msg& packet, char* buffer){
+
+void deserializeBuffer(Pose_msg& packet, char* buffer){
 	memcpy(&packet.quaternion.x, buffer, sizeof(packet.quaternion.x));
 	memcpy(&packet.quaternion.y, buffer + sizeof(packet.quaternion.y), sizeof(packet.quaternion.y));
 	memcpy(&packet.quaternion.z, buffer + 2 * sizeof(packet.quaternion.z), sizeof(packet.quaternion.z));
@@ -58,8 +69,8 @@ void VRPN_CALLBACK handle_pose(void* userData, const vrpn_TRACKERCB t)
     pose_data.point.z = t.pos[2];
     std::cout << pose_data << std::endl;
     char buffer[sizeof(pose_data)];
-    serializePoseMsg(pose_data, buffer);
-    udpConnection.send(reinterpret_cast<const char*>(buffer), sizeof(pose_data), 0);
+    serializeBuffer(pose_data, buffer);
+    std::cout << "First 4 bytes as float: " << *((float*)buffer) << " (should match " << pose_data.quaternion.x << ")" << std::endl;    udpConnection.send(reinterpret_cast<const char*>(buffer), sizeof(pose_data), 0);
 }
 
 
@@ -104,6 +115,7 @@ int main(int argc, char** argv)
     }
 
     // Enter main loop to read data
+    char buffer[1024];
     while (true) {
         connection->mainloop();
         tracker.mainloop();
