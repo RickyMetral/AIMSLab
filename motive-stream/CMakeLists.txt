@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Project name
-project(motive-pose-stream)
+project(crazyflie-pose-stream)
 
 # C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -16,7 +16,7 @@ include_directories(/usr/local/include)
 
 # Source files
 set(SOURCES
-    src/motive-pose-stream-aze.cpp
+    src/crazyflie-pose-stream.cpp
     src/UDPConnection.cpp
 )
 
@@ -27,4 +27,4 @@ link_directories(/usr/local/lib)
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 # Link external libraries
-target_link_libraries(motive-pose-stream vrpn quat pthread)
+target_link_libraries(${PROJECT_NAME} vrpn quat pthread)
