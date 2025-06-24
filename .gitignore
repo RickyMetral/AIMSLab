@@ -7,3 +7,6 @@ bin/
 */build/cmake_install.cmake
 */build/CMakeCache.txt
 *.swp
+/crazyflie-clients-python
+/crazyflie-firmware
+cache/
