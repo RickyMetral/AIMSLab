@@ -10,3 +10,5 @@ bin/
 /crazyflie-clients-python
 /crazyflie-firmware
 cache/
+*.venv
+!crazyflie-clients-python/src/aimslab/**
