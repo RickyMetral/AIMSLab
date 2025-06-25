@@ -22,3 +22,18 @@ make
 then simply exec the binary
 
 E.g. ./bin/motive-pose-stream
+
+_________________
+
+CrazyFlie Setup
+
+Install From Source the cfclient: https://www.bitcraze.io/documentation/repository/crazyflie-clients-python/master/installation/install/
+
+Then download the firmware here(Only Works on Linux) to change the crazyflie files: https://www.bitcraze.io/documentation/tutorials/getting-started-with-development/
+
+Make sure to download the dependencies to build the firmware:
+https://www.bitcraze.io/documentation/repository/crazyflie-firmware/master/building-and-flashing/build/#dependencies
+
+To send packets to crazyflie run ```pip intall cflib```
+
+
