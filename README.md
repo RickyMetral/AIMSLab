@@ -42,28 +42,27 @@ BUILDING THE VRPN Library (Linux Only)
 
 To get the vrpn libraries do the following: 
 sudo apt-get install libusb-1.0-0-dev libboost-all-dev
-cd dependencies
-git clone https://github.com/vrpn/vrpn.git
+cd dependencies && git clone https://github.com/vrpn/vrpn.git && cd vrpn
 
-# Cd back into motive-stream
-cd ..
 
-# Create a separate build directory (best practice for CMake builds)
-mkdir build && cd build
+Create a separate build directory
+cd ../../ &&  mkdir build && cd build
 
-# Generate Makefiles with CMake
+Generate Makefiles with CMake
 cmake ..
 make -j$(nproc) 
 
-# ONLY if you want install libraries locally. The project should still run if not 
+ONLY if you want install libraries locally. The project should still run if not 
 sudo make install      
 
-# If the first call to make does not work, do the following:
+_______________
+
+# m500 Docs:
+
+The modal m500 should automatically be on AIMSnet as a device
+To ssh into the drone, use ssh root@192.168.1.83
+
+These are the modalAi docs:
+https://docs.modalai.com/
 
 
-# Generates libaries for inside the vrpn repo
-cd into dependencies/vrpn/build 
-cmake .. -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release # Change to DBUILD_SHARED_LIBDS=ON if you want to dynamically link instead of static
-make
-
-# Then run make from motive-stream/build again

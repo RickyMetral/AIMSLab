@@ -14,3 +14,6 @@ cache/
 !crazyflie-clients-python/src/aimslab/**
 */dependencies/vrpn/
 */dependencies/NatNet/
+voxl-cross-template/
+voxl-docker
+
