@@ -12,3 +12,5 @@ bin/
 cache/
 *.venv
 !crazyflie-clients-python/src/aimslab/**
+*/dependencies/vrpn/
+*/dependencies/NatNet/
