@@ -138,7 +138,6 @@ int main(int argc, char** argv)
     }
 
     // Enter main loop to read data
-    char buffer[1024];
     while (true) {
         connection->mainloop();
         tracker.mainloop();

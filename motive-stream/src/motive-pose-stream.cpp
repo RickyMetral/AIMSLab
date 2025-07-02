@@ -15,7 +15,7 @@
 #include "Messages.hpp"
 
 
-std::string serverIp = "192.168.1.146";
+std::string serverIp = "127.0.0.1";
 UDPConnection udpConnection(serverIp, 10443, 10444);
 
 std::ostream& operator<<(std::ostream& os, const Pose_msg& msg){
@@ -64,7 +64,7 @@ void VRPN_CALLBACK handle_pose(void* userData, const vrpn_TRACKERCB t)
 
 
 
-int main(int argc, char** argv)
+int main()
 {
     // Set your tracker name & VRPN server address
     const std::string tracker_name = "starscream";

@@ -15,8 +15,9 @@
 #include "Messages.hpp"
 
 
-std::string serverIp = "192.168.1.146";
-UDPConnection udpConnection(serverIp, 10443, 10444);
+// std::string serverIp = "192.168.1.151";
+// UDPConnection udpConnection(serverIp,10443, 10444);
+
 
 std::ostream& operator<<(std::ostream& os, const Pose_msg& msg){
     os << "Quaternions: " << msg.quaternion.x << msg.quaternion.y 
@@ -54,12 +55,11 @@ void VRPN_CALLBACK handle_pose(void* userData, const vrpn_TRACKERCB t)
     pose_data.quaternion.z = t.quat[2];
     pose_data.quaternion.w = t.quat[3];
     pose_data.point.x = t.pos[0];
-    pose_data.point.y = t.pos[1];
-    pose_data.point.z = t.pos[2];
+    pose_data.point.y = t.pos[2];//The vertical axis in motive is the y axis
+    pose_data.point.z = t.pos[1];
     std::cout << pose_data << std::endl;
     char buffer[sizeof(pose_data)];
     serializeBuffer(pose_data, buffer);
-    udpConnection.send(reinterpret_cast<const char*>(buffer), sizeof(pose_data), 0);
 }
 
 
@@ -67,7 +67,7 @@ void VRPN_CALLBACK handle_pose(void* userData, const vrpn_TRACKERCB t)
 int main(int argc, char** argv)
 {
     // Set your tracker name & VRPN server address
-    const std::string tracker_name = "starscream";
+    const std::string tracker_name = "starling_2";
     const std::string server_address = "192.168.1.42:3883";
     const std::string full_address = tracker_name + "@" + server_address;
 
