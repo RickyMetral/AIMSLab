@@ -60,10 +60,15 @@ _______________
 # m500 Docs:
 
 The modal m500 should automatically be on AIMSnet as a device
-To ssh into the drone, use ssh root@192.168.1.83
+To ssh into the drone, use ssh root@192.168.1.83, the password is default for modalai: oelinux123
 
 These are the modalAi docs:
 https://docs.modalai.com/
+______________
 
+#Starling 2 Docs:
+To gain access to firmware use adb shell with a usb cable
+To ssh into the drone, use ssh root@192.168.1.83, the password is default for modalai: oelinux123
 
-https://docs.modalai.com/mavlink/
+Ros2 pkg to send vrpn stream info onto starling is here: [https://github.com/RickyMetral/optitrack](url)
+View modalai techincal docs for specific instructions
