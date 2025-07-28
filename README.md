@@ -25,7 +25,7 @@ E.g. ./bin/motive-pose-stream
 
 _________________
 
-CrazyFlie Setup
+# CrazyFlie Setup
 
 Install From Source the cfclient: https://www.bitcraze.io/documentation/repository/crazyflie-clients-python/master/installation/install/
 
@@ -38,7 +38,7 @@ To send packets to crazyflie run ```pip intall cflib```
 
 __________________
 
-BUILDING THE VRPN Library (Linux Only)
+# BUILDING THE VRPN Library (Linux Only)
 
 To get the vrpn libraries do the following: 
 sudo apt-get install libusb-1.0-0-dev libboost-all-dev
@@ -66,9 +66,18 @@ These are the modalAi docs:
 https://docs.modalai.com/
 ______________
 
-#Starling 2 Docs:
+# Starling 2 Docs:
 To gain access to firmware use adb shell with a usb cable
 To ssh into the drone, use ssh root@192.168.1.83, the password is default for modalai: oelinux123
 
 Ros2 pkg to send vrpn stream info onto starling is here: [https://github.com/RickyMetral/optitrack](url)
 View modalai techincal docs for specific instructions
+https://docs.modalai.com/mavlink/
+
+_________________________________
+
+# How to build with Mavlink:
+Clone this header library:
+https://github.com/vrpn/vrpn
+
+
