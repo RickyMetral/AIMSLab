@@ -1,23 +1,30 @@
-2 different stream files in src:
+# AIMSLab Docs
 
-motive-pose-stream-aze.cpp (this is what Ayan uses for mocap->unity)
+This a repository containing most of the code written by me over summer 25 for the additive manufacturing REU with Dr. Baidya and Dr. Aqlan. The repo contains links to the ROS2 package needed to receive mocap data on the Starling 2, how to install the VRPN library to receive mocap data, the python instructions to get the crazyflie flying using mocap and the 3D print anomaly detection model I made.
+_________________
+# Motive Stream Docs
+
+Using stream files in src:
+
+1. To make a new streaming file copy the motive-pose-stream file and edit the rigid body name to match the rigid body to be tracked. From there you can make any desired changes to the file(i.e chage the serializiaton format, etc.)
+2. Go to the top of the Cmake file and change the the project name to the desired name for your binary file and change the SOURCES variable to use the specified streaming file.
+3. Follow the instructions below to build your file and the binary will be in the bin folder, which can be run as shown below. (./bin/<binary_file>)
+
 motive-pose-stream.cpp (this is the original stream that Ricky created)
-
-Accordingly change the CMakeLists to build the correct .cpp file for your use case
 
 Be aware of the data types in Messages.hpp
 
-------
-
 commands to build:
 
+mkdir build
 cmake --build build/
 
 OR
+
+mkdir build
 cd build
 cmake ..
 make
--------
 
 then simply exec the binary
 
@@ -26,19 +33,26 @@ E.g. ./bin/motive-pose-stream
 _________________
 
 # CrazyFlie Setup
+***Disclaimer: This script has only been tested in Ubuntu so Windows will most likely not work***
+1. Install From Source the cfclient: [https://www.bitcraze.io/documentation/repository/crazyflie-clients-python/master/installation/install/](url)
+2. 3. In the crazyflie-clients-python directory, run:```cd src``` and ```mkdir aimslab```
+3. Transfer all the crazyflie files from this repo into the aimslab directory you just made
+4. If you haven't already make a python venv in the crazyflie-client=-python directyory using ```python3 -m venv .venv```, activate you venv using: ```source .venv/bin/activate```and run ```pip install -r requirements.txt``` to install dependencies.
+5. If for some reason pip installing from the requirements.txt fails, you can use ```pip install motioncapture cflib scipy numpy``` for all necessary dependencies.
 
-Install From Source the cfclient: https://www.bitcraze.io/documentation/repository/crazyflie-clients-python/master/installation/install/
+To connect to the crazyflie make sure you use theh crazyradio dongle
 
-Then download the firmware here(Only Works on Linux) to change the crazyflie files: https://www.bitcraze.io/documentation/tutorials/getting-started-with-development/
+If you need to dowload the firmware follow these instructions:
 
-Make sure to download the dependencies to build the firmware:
-https://www.bitcraze.io/documentation/repository/crazyflie-firmware/master/building-and-flashing/build/#dependencies
-
-To send packets to crazyflie run ```pip intall cflib```
+  Download the firmware here to change the crazyflie files: https://www.bitcraze.io/documentation/tutorials/getting-started-with-development/
+  
+  Make sure to download the dependencies to build the firmware:
+  https://www.bitcraze.io/documentation/repository/crazyflie-firmware/master/building-and-flashing/build/#dependencies
 
 __________________
 
 # BUILDING THE VRPN Library (Linux Only)
+[https://github.com/vrpn/vrpn](url)
 
 To get the vrpn libraries do the following: 
 sudo apt-get install libusb-1.0-0-dev libboost-all-dev
@@ -51,10 +65,9 @@ cd ../../ &&  mkdir build && cd build
 Generate Makefiles with CMake
 cmake ..
 make -j$(nproc) 
-
-ONLY if you want install libraries locally. The project should still run if not 
 sudo make install      
 
+Unfortunately, I was only able to get the library working if you install the object files system wide. That may be an improvement to make in the future. 
 _______________
 
 # m500 Docs:
@@ -67,17 +80,15 @@ https://docs.modalai.com/
 ______________
 
 # Starling 2 Docs:
-To gain access to firmware use adb shell with a usb cable
-To ssh into the drone, use ssh root@192.168.1.83, the password is default for modalai: oelinux123
+To gain access to the firmware use adb shell with a usb cable or use ssh.
+To ssh into the drone, use ssh root@192.168.1.151, the password is default for modalai: oelinux123. The drone is already on AIMSnet so you don't have to worry about setting that up. To ssh into it, make sure your device is also on AIMSnet.
 
-Ros2 pkg to send vrpn stream info onto starling is here: [https://github.com/RickyMetral/optitrack](url)
-View modalai techincal docs for specific instructions
+The drone box contains, the battery, a power module for the drone to use instead of batteries, the drone and adapters for the XT connections
+The charger is seperate from the drone and is in the cabinet in the support lab. It is in a white box in the top left of the cabinet. BEFORE CHARGING/USING ANY OF THE BATTERIES MAKE SURE TO FOLLOW CONVENTIONS FOR CHARGING/USING LiPo/LiIon BATTERIES.
+
+
+The Ros2 pkg to send vrpn stream info onto starling is here: [https://github.com/RickyMetral/optitrack](url). It should already be on the starling 2 drone in a workspace named aimslab_ws in the root dir. The rest of the docs for the package will be in the repo. Please refer to ModalAi docs before beginning development on the drone. The learning curve is big, but very necessary. Start with the developer bootcamp in their documentation and go from there. 
+
+View modalai techincal docs:
 https://docs.modalai.com/mavlink/
-
-_________________________________
-
-# How to build with Mavlink:
-Clone this header library:
-https://github.com/vrpn/vrpn
-
 
