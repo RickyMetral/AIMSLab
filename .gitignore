@@ -12,8 +12,9 @@ bin/
 cache/
 *.venv
 !crazyflie-clients-python/src/aimslab/**
+!crazyflie-clients-python/requirements.txt**
 */dependencies/vrpn/
 */dependencies/NatNet/
 voxl-cross-template/
 voxl-docker
-
+/anomaly-detection/
