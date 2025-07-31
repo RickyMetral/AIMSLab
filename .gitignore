@@ -1,4 +1,5 @@
 .vscode
+.gitconfig
 .vscode/
 *.txt
 bin/
@@ -12,9 +13,8 @@ bin/
 cache/
 *.venv
 !crazyflie-clients-python/src/aimslab/**
-!crazyflie-clients-python/requirements.txt**
-*/dependencies/vrpn/
-*/dependencies/NatNet/
+!crazyflie-clients-python/requirements.txt
+*/dependencies/**
 voxl-cross-template/
 voxl-docker
 /anomaly-detection/
