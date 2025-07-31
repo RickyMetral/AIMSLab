@@ -29,8 +29,8 @@ typedef struct CTRPPacket{
 	};
 }__attribute__((packed)) CRTPPacket;
 
-std::string serverIp = "192.168.1.139";
-UDPConnection udpConnection(serverIp, 10444, 10444);
+std::string serverIp = "127.0.0.1";
+UDPConnection udpConnection(serverIp, 10443, 10444);
 
 std::ostream& operator<<(std::ostream& os, const Pose_msg& msg){
     os << "Quaternions: " << msg.quaternion.x << msg.quaternion.y 
@@ -91,7 +91,9 @@ void VRPN_CALLBACK handle_pose(void* userData, const vrpn_TRACKERCB t)
     std::cout << "Valid Float Check: " << t.quat[0] << "==" << *((float*)buffer) << std::endl;
     std::cout << "Quaternions: " << t.quat[0] << " " << t.quat[1] << " " 
         << " "  <<  t.quat[2] << " " <<  t.quat[3] << "\n"
-        "Position: " << t.pos[0] << " " <<  t.pos[1] << " " << t.pos[2] << " " << std::endl;
+        "Position: " << t.pos[0] << " " <<  t.pos[1] << " " << t.pos[2] << "\n" << 
+        "Timestamp: " << t.msg_time.tv_sec << "." << t.msg_time.tv_usec << std::endl;
+
 
     udpConnection.send( buffer, sizeof(buffer), 0);
 }
@@ -142,7 +144,7 @@ int main(int argc, char** argv)
         connection->mainloop();
         tracker.mainloop();
    
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        // std::this_thread::sleep_for(std::chrono::milliseconds(5));
     }
 
     return 0;

@@ -15,7 +15,7 @@
 #include "Messages.hpp"
 
 
-std::string serverIp = "192.168.1.146";
+std::string serverIp = "192.168.1.150";
 UDPConnection udpConnection(serverIp, 10443, 10444);
 
 std::ostream& operator<<(std::ostream& os, const Pose_msg& msg){
@@ -65,8 +65,8 @@ void VRPN_CALLBACK handle_pose(void* userData, const vrpn_TRACKERCB t)
     pose_data.quaternion.z = t.quat[2];
     pose_data.quaternion.w = t.quat[3];
     pose_data.point.x = t.pos[0];
-    pose_data.point.y = t.pos[1];
-    pose_data.point.z = t.pos[2];
+    pose_data.point.y = t.pos[2];
+    pose_data.point.z = t.pos[1];
     std::cout << pose_data << std::endl;
     char buffer[sizeof(pose_data)];
     serializeBuffer(pose_data, buffer);
