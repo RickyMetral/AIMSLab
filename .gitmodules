@@ -1,0 +1,3 @@
+[submodule "optitrack"]
+	path = optitrack
+	url = https://github.com/RickyMetral/optitrack.git
