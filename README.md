@@ -14,23 +14,40 @@ motive-pose-stream.cpp (this is the original stream that Ricky created)
 
 Be aware of the data types in Messages.hpp
 
-commands to build:
+Instructions to build stream files:
 
-mkdir build
-cmake --build build/
-
-OR
-
+```
+cd motive-stream
 mkdir build
 cd build
 cmake ..
 make
+```
+P.S (after instantaiting the make files, you can also build from anywhere by running: ```cmake --build <path/to/build-dir>/build```
 
-then simply exec the binary
+then simply exec the binary:
 
-E.g. ./bin/motive-pose-stream
+E.g. ```./bin/motive-pose-stream```
 
 _________________
+
+# BUILDING THE VRPN Library (Linux Only)
+[https://github.com/vrpn/vrpn](url)
+
+To get the vrpn libraries do the following: 
+
+```
+cd motive-stream
+sudo apt-get install libusb-1.0-0-dev libboost-all-dev
+mkdir dependencies && cd dependencies
+git clone https://github.com/vrpn/vrpn.git && cd vrpn
+mkdir build && cd build
+cmake ..
+make -j$(nproc) 
+sudo make install  
+```
+Unfortunately, I was only able to get the library working if you install the object files system wide. That may be an improvement to make in the future. 
+__________________
 
 # CrazyFlie Setup
 ***Disclaimer: This script has only been tested in Ubuntu so Windows will most likely not work***
@@ -48,26 +65,6 @@ If you need to dowload the firmware follow these instructions:
   
   Make sure to download the dependencies to build the firmware:
   https://www.bitcraze.io/documentation/repository/crazyflie-firmware/master/building-and-flashing/build/#dependencies
-
-__________________
-
-# BUILDING THE VRPN Library (Linux Only)
-[https://github.com/vrpn/vrpn](url)
-
-To get the vrpn libraries do the following: 
-sudo apt-get install libusb-1.0-0-dev libboost-all-dev
-cd dependencies && git clone https://github.com/vrpn/vrpn.git && cd vrpn
-
-
-Create a separate build directory
-cd ../../ &&  mkdir build && cd build
-
-Generate Makefiles with CMake
-cmake ..
-make -j$(nproc) 
-sudo make install      
-
-Unfortunately, I was only able to get the library working if you install the object files system wide. That may be an improvement to make in the future. 
 _______________
 
 # m500 Docs:
