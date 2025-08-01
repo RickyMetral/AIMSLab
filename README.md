@@ -86,6 +86,7 @@ To ssh into the drone, use ssh root@192.168.1.151, the password is default for m
 The drone box contains, the battery, a power module for the drone to use instead of batteries, the drone and adapters for the XT connections
 The charger is seperate from the drone and is in the cabinet in the support lab. It is in a white box in the top left of the cabinet. BEFORE CHARGING/USING ANY OF THE BATTERIES MAKE SURE TO FOLLOW CONVENTIONS FOR CHARGING/USING LiPo/LiIon BATTERIES.
 
+To view the camera overlays of the drone make sure you are on the AIMSnet wifi. Then open your browser and type in the voxls ip (192.168.1.151). You should see the voxl portal with info on the starling's current state. More info on the portal can be found in Modlai docs.
 
 The Ros2 pkg to send vrpn stream info onto starling is here: [https://github.com/RickyMetral/optitrack](url). It should already be on the starling 2 drone in a workspace named aimslab_ws in the root dir. The rest of the docs for the package will be in the repo. Please refer to ModalAi docs before beginning development on the drone. The learning curve is big, but very necessary. Start with the developer bootcamp in their documentation and go from there. 
 
