@@ -1,3 +1,6 @@
 [submodule "optitrack"]
 	path = optitrack
 	url = https://github.com/RickyMetral/optitrack.git
+[submodule "anomaly-detection"]
+	path = anomaly-detection
+	url = https://github.com/RickyMetral/anomaly-detection.git
