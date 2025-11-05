@@ -67,9 +67,9 @@ __________________
 # CrazyFlie Setup
 ***Disclaimer: This script has only been tested in Ubuntu so Windows will most likely not work***
 1. Install From Source the cfclient: [https://www.bitcraze.io/documentation/repository/crazyflie-clients-python/master/installation/install/](url)
-2. 3. In the crazyflie-clients-python directory, run:```cd src``` and ```mkdir aimslab```
+2. In the crazyflie-clients-python directory, run:```cd src``` and ```mkdir aimslab```
 3. Transfer all the crazyflie files from this repo into the aimslab directory you just made
-4. If you haven't already make a python venv in the crazyflie-client=-python directyory using ```python3 -m venv .venv```, activate you venv using: ```source .venv/bin/activate```and run ```pip install -r requirements.txt``` to install dependencies.
+4. If you haven't already make a python venv in the crazyflie-clients-python directory using ```python3 -m venv .venv```, activate you venv using: ```source .venv/bin/activate```and run ```pip install -r requirements.txt``` to install dependencies.
 5. If for some reason pip installing from the requirements.txt fails, you can use ```pip install motioncapture cflib scipy numpy``` for all necessary dependencies.
 
 To connect to the crazyflie make sure you use theh crazyradio dongle
